@@ -1,0 +1,131 @@
+.image-small > * {
+    &:hover {
+        border: 1px solid var(--primary-color);
+    }
+}
+
+.image-small {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 5px;
+}
+
+.title {
+    margin: 0px;
+    color: rgb(39, 39, 42);
+    font-size: 20px;
+    font-weight: 500;
+    line-height: 150%;
+    word-break: break-word;
+    white-space: break-spaces;
+}
+
+.star {
+    font-size: 1.5rem;
+    margin-right: 5px;
+}
+
+.quality {
+    font-size: 1.4rem;
+    line-height: 24px;
+    color: rgb(120, 120, 120);
+    margin-top: 5px;
+}
+
+.cost {
+    display: flex;
+    align-items: center;
+    margin-top: 16px;
+}
+
+.price {
+    color: rgb(255, 66, 78);
+    font-size: 24px;
+    font-weight: 600;
+    line-height: 150%;
+    margin-right: 8px;
+}
+
+.discount {
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 150%;
+    padding: 0px 4px;
+    background: rgb(245, 245, 250);
+    border-radius: 8px;
+    color: rgb(39, 39, 42);
+}
+
+.delivery-info {
+    border-top: 2px solid rgb(235, 235, 240);
+    padding-top: 10px;
+    h3 {
+        font-weight: 600;
+        font-size: 16px;
+        line-height: 150%;
+        color: rgb(39, 39, 42);
+    }
+    .address {
+        display: flex;
+        align-items: center;
+        margin-bottom: 10px;
+        p {
+            color: rgb(39, 39, 42);
+            overflow: hidden;
+            display: -webkit-box;
+            -webkit-box-orient: vertical;
+            width: 100%;
+        }
+        span {
+            color: rgb(10, 104, 255);
+            cursor: pointer;
+        }
+    }
+}
+
+.quantity {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    border-top: 2px solid rgb(235, 235, 240);
+    p {
+        padding: 10px 0;
+        font-size: 14px;
+        font-style: normal;
+        font-weight: 600;
+        line-height: 150%;
+        margin: 0px;
+    }
+    div {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        .quantity-btn {
+            height: 32px;
+            min-width: 32px;
+        }
+
+        .nunmber {
+            height: 32px;
+            width: 32px;
+            border: 1px solid var(--primary-color);
+            color: var(--primary-color);
+            text-align: center;
+        }
+    }
+}
+
+.buy {
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+    width: 100%;
+    .buy-btn {
+        height: 50px;
+        width: 300px;
+        .lai-suat {
+            font-size: 1.4rem;
+            font-weight: 400;
+        }
+    }
+}

@@ -1,0 +1,59 @@
+.card-item {
+    box-shadow: 1px 1px 5px lightblue;
+    &:hover {
+        scale: 1.02;
+    }
+}
+
+.title {
+    font-size: 1.4rem;
+    display: block;
+    // align-items: center;
+    padding-bottom: 2px;
+    color: var(--text-color);
+    font-weight: 500;
+    line-height: 1.4rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.card-info {
+    font-size: 1.2rem;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    line-height: 1.2rem;
+    margin-top: 6px;
+}
+
+.rate {
+    margin-left: 4px;
+    font-size: 1rem;
+    color: yellow;
+    transform: translateY(-1px);
+}
+
+.sold {
+    padding-left: 12px;
+    border-left: 1px solid #968f8f;
+}
+
+.cost {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.price {
+    color: var(--primary-color);
+    font-size: 2rem;
+    font-weight: 500;
+}
+
+.discount {
+    font-size: 1.2rem;
+    transform: translateY(2px);
+    background-color: rgb(245, 245, 250);
+    padding: 2px;
+}

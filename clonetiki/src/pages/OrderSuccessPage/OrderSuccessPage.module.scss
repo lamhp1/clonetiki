@@ -1,0 +1,74 @@
+.wrapper {
+    padding: 10px 120px;
+    background-color: #efefef;
+    height: auto;
+}
+
+.wrapper-info {
+    display: flex;
+    justify-content: space-between;
+    background-color: white;
+    border-radius: 10px;
+    padding: 20px 10px;
+}
+
+.delivery-info {
+    display: flex;
+    flex: 1.7;
+    justify-content: space-around;
+    padding-left: 35px;
+}
+
+.delivery-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    h4 {
+        margin-bottom: 10px;
+    }
+}
+
+.info {
+    margin-left: 50px;
+    flex: 1;
+}
+
+.option {
+    background-color: #f0f6ff;
+    padding: 10px 10px;
+    border: 2px solid #dae9ff;
+    border-radius: 5px;
+}
+
+.ship-info {
+    color: var(--primary-color);
+    font-size: 1.6rem;
+    font-weight: 500;
+}
+
+.item {
+    font-size: 1.4rem;
+}
+
+.total-price {
+    padding-top: 15px;
+    font-size: 1.5rem;
+    span {
+        color: rgb(247, 75, 75);
+        font-weight: 600;
+        font-size: 1.8rem;
+    }
+}
+
+.wrapper-products {
+    background-color: white;
+    display: flex;
+    margin-top: 15px;
+    padding: 10px;
+    border-radius: 10px;
+    align-items: center;
+    justify-content: space-between;
+    p {
+        font-size: 1.4rem;
+    }
+}
