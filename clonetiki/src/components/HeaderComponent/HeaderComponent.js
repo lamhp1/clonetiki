@@ -164,7 +164,7 @@ function HeaderComponent({ isHiddenSearch = false, isHiddenCart = false }) {
                         >
                             <FontAwesomeIcon icon={faCartShopping} className={cx('cart-icon', 'position-relative')} />
                             <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-                                {order?.orderItems?.length}
+                                {isLogIn ? order?.orderItems.length : 0}
                                 <span className="visually-hidden">unread messages</span>
                             </span>
                         </div>

@@ -33,7 +33,7 @@ function OrderPage() {
     const navigate = useNavigate();
     const { orderItems, orderItemsSelected } = order;
 
-    // console.log('orderItems', orderItems);
+    console.log('orderItems', orderItems);
     // console.log('orderItemsSelected', orderItemsSelected);
 
     const dispatch = useDispatch();

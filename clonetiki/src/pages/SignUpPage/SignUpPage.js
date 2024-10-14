@@ -72,12 +72,16 @@ function SignUpPage() {
         });
     };
 
+    const handleToHome = () => {
+        navigate('/')
+    }
+
     return (
         <div className={cx('overlay')}>
             <Row className={cx('wrapper')}>
                 <Col span={16} className={cx('left')}>
                     <div className={cx('signin-account')}>
-                        <div className={cx('back-icon')}>
+                        <div className={cx('back-icon')} onClick={handleToHome}>
                             <FontAwesomeIcon icon={faAngleLeft} />
                         </div>
                         <h3 style={{ marginTop: '20px' }}>Đăng kí tài khoản</h3>

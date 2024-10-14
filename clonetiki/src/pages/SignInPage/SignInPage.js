@@ -80,6 +80,11 @@ function SignInPage() {
             password,
         });
     };
+
+    const handleToHome = () => {
+        navigate('/')
+    }
+
     return (
         <div className={cx('overlay')}>
             <Row className={cx('wrapper')}>
@@ -105,7 +110,7 @@ function SignInPage() {
                         <p className={cx('toggle')}>Đăng nhập bằng Email</p>
                     </div>
                     <div className={cx('signin-account')}>
-                        <div className={cx('back-icon')}>
+                        <div className={cx('back-icon')} onClick={handleToHome}>
                             <FontAwesomeIcon icon={faAngleLeft} />
                         </div>
                         <h3 style={{ marginTop: '20px' }}>Đăng nhập bằng Email</h3>
@@ -145,7 +150,7 @@ function SignInPage() {
                                 </Button>
                             </Loading>
                         </form>
-                        <span className={cx('toggle')}>Quên mật khẩu?</span>
+                        {/* <span className={cx('toggle')}>Quên mật khẩu?</span> */}
                         <p>
                             Chưa có tài khoản?{' '}
                             <span onClick={handleNavigateSignUp} className={cx('toggle')}>
@@ -156,7 +161,7 @@ function SignInPage() {
                 </Col>
                 <Col span={8} className={cx('right')}>
                     <Image src={logo} preview={false} width={200} />
-                    <h3>Mua sắm tại Tiki</h3>
+                    <h3>Mua sắm tại LâmShop</h3>
                     <p>Siêu ưu đãi mỗi ngày</p>
                 </Col>
             </Row>

@@ -53,6 +53,8 @@ const loginUser = async (req, res) => {
         res.cookie('refresh_token', refreshToken, {
             maxAge: 365*24*60*60,
             httpOnly: true,
+            secure: true,
+            SameSite: 'None'
         })
         return res.status(200).json(rest)
     } catch (err) {
