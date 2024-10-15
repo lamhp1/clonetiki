@@ -65,5 +65,5 @@
         "react-app-rewired": "^2.2.1",
         "sass": "^1.75.0"
     },
-    "proxy": "http://localhost:3001"
+    "proxy": "https://lamshop.onrender.com"
 }
