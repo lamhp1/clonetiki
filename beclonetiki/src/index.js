@@ -14,7 +14,7 @@ const port = process.env.PORT || 3001
 
 app.use(cors(
   {
-    origin: 'http://localhost:3000', // Địa chỉ của frontend
+    origin: 'https://lamshop-4wt5mpl7u-lams-projects-505f5634.vercel.app/', // Địa chỉ của frontend
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
     credentials: true, // Cho phép gửi cookie và thông tin xác thực
   }
