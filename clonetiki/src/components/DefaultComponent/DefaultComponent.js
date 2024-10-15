@@ -1,9 +1,9 @@
 import HeaderComponent from '../HeaderComponent/HeaderComponent';
 
-function DefaultComponent({ children }) {
+function DefaultComponent({ children, ...props }) {
     return (
         <div>
-            <HeaderComponent />
+            <HeaderComponent {...props} />
             {children}
         </div>
     );

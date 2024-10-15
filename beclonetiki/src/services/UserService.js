@@ -144,6 +144,12 @@ const updateAvatar = (id, avatar, result) => {
 const deleteUser = (idUser) => {
     return new Promise(async (resolve, reject) => {
         try {
+            const user = await User.findById(idUser)
+
+            if (user.avatarPublicId) {
+                await cloudinary.uploader.destroy(user.avatarPublicId);
+            }
+
             const deleteUser = await User.findByIdAndDelete(idUser)
 
             if(!deleteUser) {

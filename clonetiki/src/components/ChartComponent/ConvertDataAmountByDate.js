@@ -22,9 +22,12 @@ function ConvertDataAmountByDate(orders) {
         // }
 
         // Cộng tổng số lượng sản phẩm trong đơn hàng
-        order.orderItems.forEach((item) => {
-            dateMap[date] += item.amount;
-        });
+        if(listDate?.some(item => item === date)) {
+            order.orderItems.forEach((item) => {
+                dateMap[date] += item.amount;
+            });
+        }
+       
     });
 
     return dateMap;

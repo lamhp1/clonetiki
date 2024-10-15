@@ -22,16 +22,19 @@ const routes = [
         path: '/order',
         page: OrderPage,
         isShowHeader: true,
+        isHiddenSearch: true
     },
     {
         path: '/payment',
         page: PaymentPage,
         isShowHeader: true,
+        isHiddenSearch: true
     },
     {
         path: '/order-success',
         page: OrderSuccessPage,
         isShowHeader: true,
+        isHiddenSearch: true
     },
     {
         path: '/products',
@@ -57,11 +60,13 @@ const routes = [
         path: '/product-details/:id',
         page: ProductDetailPage,
         isShowHeader: true,
+        isHiddenSearch: true
     },
     {
         path: '/profile',
         page: ProfilePage,
         isShowHeader: true,
+        isHiddenSearch: true
     },
     {
         path: '/system/admin',
@@ -73,6 +78,7 @@ const routes = [
         path: '/my-order',
         page: MyOrderPage,
         isShowHeader: true,
+        isHiddenSearch: true
     },
     {
         path: '*',

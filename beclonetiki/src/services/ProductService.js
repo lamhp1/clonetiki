@@ -118,6 +118,13 @@ const detailProduct = (id) => {
 const deleteProduct = (id) => {
     return new Promise(async (resolve, reject) => {
         try {
+
+            const product = await Product.findById(id)
+
+            if (product.imagePublicId) {
+                await cloudinary.uploader.destroy(product.imagePublicId);
+            }
+
             const deleteProduct = await Product.findByIdAndDelete(id)
 
             if(!deleteProduct) {
@@ -159,7 +166,7 @@ const getAllProducts = (page, limit, sort, filter) => {
     return new Promise(async (resolve, reject) => {
         try {
             const totalProducts = await Product.countDocuments()
-            if(filter && filter[0] === 'type') {
+            if(filter && (filter[0] === 'type' || filter[0] === 'name')) {
                 const allProductsFilter = await Product.find({
                     [filter[0]] : { $regex: filter[1], $options: 'i' }
                 }).limit(limit).skip(page*limit)

@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
+import avatarDefault from '~/assets/img/avatardefault.png'
 
 const initialState = {
     id: '',
@@ -6,7 +7,7 @@ const initialState = {
     email: '',
     phone: '',
     address: '',
-    avatar: '',
+    avatar: avatarDefault,
     accessToken: '',
     isAdmin: false,
 };
@@ -23,7 +24,7 @@ export const userSlice = createSlice({
                 email = '',
                 phone = '',
                 address = '',
-                avatar = '',
+                avatar = avatarDefault,
                 accessToken = '',
                 isAdmin,
             } = action.payload;

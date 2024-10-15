@@ -75,7 +75,7 @@ function App() {
                                 <Route
                                     path={isCheckAuth && route.path}
                                     element={
-                                        <Layout>
+                                        <Layout isHiddenSearch={route.isHiddenSearch}>
                                             <Page />
                                         </Layout>
                                     }
