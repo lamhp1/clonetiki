@@ -42,7 +42,7 @@ function CardComponent({ props, item4, id }) {
                         {props?.disCount === 0 ? '' : <span className={cx('discount')}>-{props?.disCount}%</span>}
                     </p>
 
-                    <p className="card-text">Make in VietNam</p>
+                    <p className="card-text">Made in VietNam</p>
                 </div>
             </div>
         </div>

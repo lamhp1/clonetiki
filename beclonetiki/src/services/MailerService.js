@@ -16,7 +16,7 @@ const sendOrderConfirmation = async (toEmail, createdOrder) => {
     try {
         const mailOptions = {
             from: process.env.MAIL_ACCOUNT, // địa chỉ email người gửi
-            to: 'hoanglam10a4hbt@gmail.com', // địa chỉ email người nhận
+            to: toEmail, // địa chỉ email người nhận
             subject: 'Xác nhận đơn hàng',
             html: `
                 <h1>Thông tin đơn hàng của bạn</h1>
@@ -38,7 +38,7 @@ const sendOrderConfirmation = async (toEmail, createdOrder) => {
         await transporter.sendMail(mailOptions);
         // console.log('Email đã được gửi thành công!');
     } catch (error) {
-        console.error('Lỗi khi gửi email:', error);
+        // console.error('Lỗi khi gửi email:', error);
     }
 };
 

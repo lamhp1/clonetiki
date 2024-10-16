@@ -8,6 +8,8 @@ const createUser = async (req, res) => {
         const { name, email, password, passwordConfirm, phone } = req.body
         const filter = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
         const isEmail = filter.test(email)
+        const phoneRegex = new RegExp('^[0-9]+$');
+        const checkPhone = phoneRegex.test(phone)
         if(!name || !email || !password || !passwordConfirm || !phone) {
             return res.status(200).json({
                 status: 'ERR',
@@ -22,6 +24,16 @@ const createUser = async (req, res) => {
             return res.status(200).json({
                 status: 'ERR',
                 message: 'passwordConfirm is incorrect'
+            })
+        } else if(password.length < 6) {
+            return res.status(200).json({
+                status: 'ERR',
+                message: 'password min 6 charater'
+            })
+        } else if(!checkPhone) {
+            return res.status(200).json({
+                status: 'ERR',
+                message: 'phone must be a number'
             })
         }
         
