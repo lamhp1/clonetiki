@@ -5,6 +5,7 @@
     gap: 24px;
     justify-content: flex-start;
     border-bottom: 1px solid red;
+    padding: 0 120px;
 }
 
 .wrapper {
@@ -24,3 +25,21 @@
     transform: translateX(-50%);
     padding: 0;
 }
+
+@media (max-width: 1024px) {
+    .wrapper {
+      padding: 0 20px;
+    }
+    .product-wrapper{
+        padding: 0 20px;
+    }
+  }
+
+@media (max-width: 768px) {
+    .wrapper {
+      padding: 0 20px;
+    }
+    .product-wrapper{
+        padding: 0 20px;
+    }
+  }

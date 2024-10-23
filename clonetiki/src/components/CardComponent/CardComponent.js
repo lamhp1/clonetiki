@@ -6,12 +6,18 @@ import { useNavigate } from 'react-router-dom';
 
 const cx = classNames.bind(styles);
 
-function CardComponent({ props, item4, id }) {
+function CardComponent({ props, item4, item2, item3, id }) {
     const navigate = useNavigate();
     let itemPerRow = 'col-sm-2';
 
     if (item4) {
         itemPerRow = 'col-sm-3';
+    }
+    if(item2) {
+        itemPerRow = 'col-6'
+    }
+    if(item3) {
+        itemPerRow = 'col-4'
     }
 
     //con loi o day

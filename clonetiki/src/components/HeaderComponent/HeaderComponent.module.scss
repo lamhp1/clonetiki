@@ -34,3 +34,21 @@
     object-fit: cover;
     margin-right: 10px;
 }
+
+@media (max-width: 1024px) {
+    .wrapper {
+      padding: 0 20px;
+    }
+  }
+
+@media (max-width: 768px) {
+    .wrapper {
+      padding: 10px 10px;
+    }
+    .row {
+      display: flex;
+      align-items: center;
+      flex-direction: row;
+      justify-content: space-between;
+    }
+  }

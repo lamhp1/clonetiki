@@ -9,6 +9,7 @@ import { getAllProduct, getAllTypeProduct } from '~/services/ProductService';
 import { useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
 import useDebounce from '~/hooks/useDebounce';
+import { useMediaQuery } from 'react-responsive';
 
 const cx = classNames.bind(styles);
 
@@ -44,9 +45,13 @@ function HomePage() {
         fetchAllTypeProduct();
     }, []);
 
+    //responsive
+    const isTablet = useMediaQuery({ minWidth: 768, maxWidth: 1024 });
+    const isMobile = useMediaQuery({ maxWidth: 767 });
+
     return (
         <div>
-            <div className={cx('product-wrapper')} style={{ padding: '0 120px' }}>
+            <div className={cx('product-wrapper')}>
                 {typeProduct.map((item) => {
                     return <TypeProduct type={item} key={item} />;
                 })}
@@ -57,7 +62,7 @@ function HomePage() {
                 </div>
                 <div className="row">
                     {product?.data?.map((product) => (
-                        <CardComponent key={product?._id} props={product} id={product?._id} />
+                        <CardComponent key={product?._id} props={product} id={product?._id} item3={isTablet} item2={isMobile} />
                     ))}
                 </div>
                 <Button

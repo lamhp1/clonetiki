@@ -10,7 +10,7 @@ const cx = classNames.bind(styles);
 function ButtonInputSearch(props) {
     return (
         <div className={cx('input-group', 'search')} style={{ flexWrap: 'nowrap' }}>
-            <div className={cx('form-outline')} style={{ width: '100%' }}>
+            <div className={cx('form-outline', { 'isMobile': props.isMobile })} style={{ width: '100%' }}>
                 <InputComponent
                     type="search"
                     id="form1"

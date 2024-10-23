@@ -1,6 +1,7 @@
 import { Pagination } from 'antd';
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
+import { useMediaQuery } from 'react-responsive';
 import { useLocation } from 'react-router-dom';
 import CardComponent from '~/components/CardComponent/CardComponent';
 import Loading from '~/components/loadingComponent/Loading';
@@ -83,11 +84,15 @@ function TypeProductPage() {
         });
     };
 
+
+    const isTablet = useMediaQuery({ minWidth: 768, maxWidth: 1024 });
+    const isMobile = useMediaQuery({ maxWidth: 767 });
+
     return (
         <Loading isPending={loading}>
-            <div className="row" style={{ padding: '0 120px' }}>
-                <Navbar />
-                <div className="col-9">
+            <div className="row" style={{ padding: isMobile || isTablet ? '0 20px' : '0 120px', display: 'flex', flexDirection: isMobile ? 'column' : 'row' }}>
+                <Navbar isMobile={isMobile} />
+                <div className={!isMobile ? "col-9" : ''}>
                     <div className="row">
                         {products
                             // eslint-disable-next-line array-callback-return
@@ -99,7 +104,7 @@ function TypeProductPage() {
                                 }
                             })
                             .map((product) => {
-                                return <CardComponent item4 key={product?._id} id={product?._id} props={product} />;
+                                return <CardComponent item4 key={product?._id} id={product?._id} props={product} item3={isTablet} item2={isMobile} />;
                             })}
                     </div>
                     <div style={{ marginTop: '16px', textAlign: 'center' }}>

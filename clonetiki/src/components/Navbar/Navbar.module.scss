@@ -29,3 +29,27 @@
     background-color: #d2cdcd;
     padding: 5px;
 }
+
+//responsive
+.mobile-wrapper {
+    margin-top: 10px;
+    background-color: #efefef;
+    padding: 10px;
+    box-shadow: 2px 4px 4px #cecbcb;
+    border-radius: 5px;
+}
+
+@media (max-width: 1024px) {
+    // .item {
+    //   flex-direction: column;
+    // }
+  }
+
+@media (max-width: 768px) {
+    .price {
+        font-size: 1rem;
+    }
+    .nav-title {
+        font-size: 1.5rem;
+    }
+  }

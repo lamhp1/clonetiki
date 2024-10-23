@@ -13,6 +13,7 @@ import Loading from '../loadingComponent/Loading';
 import { useEffect, useState } from 'react';
 import { searchProduct } from '~/redux/slides/productSlice';
 import LamShop from '~/assets/img/LamShop.png';
+import { useMediaQuery } from 'react-responsive';
 
 const cx = classNames.bind(styles);
 
@@ -108,17 +109,21 @@ function HeaderComponent({ isHiddenSearch = false, isHiddenCart = false }) {
         setSearch(e.target.value);
         dispatch(searchProduct(e.target.value));
     };
+
+    //responsive
+    const isMobile = useMediaQuery({ maxWidth: 767 });
+
     return (
         <div className={cx('wrapper')}>
-            <div className="row" style={{ display: 'flex', alignItems: 'center' }}>
-                <div className={cx('col-3')} onClick={handleGoToHome} style={{ cursor: 'pointer' }}>
-                    <Image src={LamShop} alt="logo" width={150} preview={false} />
+            <div className={cx('row')} style={{display: 'flex', alignItems: 'center'}}>
+                <div className={cx({ 'col-3': !isMobile })} onClick={handleGoToHome} style={{ cursor: 'pointer' }}>
+                    <Image src={LamShop} alt="logo" width={isMobile ? 100 : 150} preview={false} />
                 </div>
-                <div className="col-6">
-                    {!isHiddenSearch && <ButtonInputSearch value={search} onChange={onSearch} />}
+                <div className={cx({ 'col-6': !isMobile })}>
+                    {!isHiddenSearch && <ButtonInputSearch value={search} onChange={onSearch} isMobile={isMobile} />}
                 </div>
-                <div
-                    className="col-3"
+                {isMobile ? '' : (<div
+                    className={cx({ 'col-3': !isMobile })}
                     style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}
                 >
                     <Loading isPending={loading}>
@@ -169,7 +174,7 @@ function HeaderComponent({ isHiddenSearch = false, isHiddenCart = false }) {
                             </span>
                         </div>
                     )}
-                </div>
+                </div>)}
             </div>
         </div>
     );
