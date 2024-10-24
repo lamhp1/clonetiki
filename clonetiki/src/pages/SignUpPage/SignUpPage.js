@@ -79,7 +79,7 @@ function SignUpPage() {
     return (
         <div className={cx('overlay')}>
             <Row className={cx('wrapper')}>
-                <Col span={16} className={cx('left')}>
+                <Col xs={24} md={16} className={cx('left')}>
                     <div className={cx('signin-account')}>
                         <div className={cx('back-icon')} onClick={handleToHome}>
                             <FontAwesomeIcon icon={faAngleLeft} />
@@ -162,7 +162,7 @@ function SignUpPage() {
                         </p>
                     </div>
                 </Col>
-                <Col span={8} className={cx('right')}>
+                <Col xs={24} md={8} className={cx('right')}>
                     <Image src={logo} preview={false} width={200} />
                     <h3>Mua sắm tại Tiki</h3>
                     <p>Siêu ưu đãi mỗi ngày</p>

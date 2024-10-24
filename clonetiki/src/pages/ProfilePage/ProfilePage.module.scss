@@ -84,3 +84,19 @@
     text-decoration: underline;
     cursor: default;
 }
+
+
+@media (max-width: 1024px) {
+    .wrapper {
+        margin: 10px 20px;
+    }
+  }
+
+@media (max-width: 768px) {
+   .avatar {
+        margin-top: 10px;
+   }
+   .title {
+        margin: 10px 20px;
+   }
+  }

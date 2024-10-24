@@ -16,6 +16,7 @@ import { jwtDecode } from 'jwt-decode';
 import { useDispatch } from 'react-redux';
 import { updateUser } from '~/redux/slides/userSlice';
 
+
 const cx = classNames.bind(styles);
 
 function SignInPage() {
@@ -88,7 +89,7 @@ function SignInPage() {
     return (
         <div className={cx('overlay')}>
             <Row className={cx('wrapper')}>
-                <Col span={16} className={cx('left')}>
+                <Col xs={24} md={16} className={cx('left')}>
                     <div className={cx('signin-phonenumber')}>
                         <h3>Xin chào</h3>
                         <p>Đăng nhập hoặc tạo tài khoản</p>
@@ -159,7 +160,7 @@ function SignInPage() {
                         </p>
                     </div>
                 </Col>
-                <Col span={8} className={cx('right')}>
+                <Col xs={24} md={8} className={cx('right')}>
                     <Image src={logo} preview={false} width={200} />
                     <h3>Mua sắm tại LâmShop</h3>
                     <p>Siêu ưu đãi mỗi ngày</p>

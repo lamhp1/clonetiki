@@ -21,7 +21,7 @@ function ButtonInputSearch(props) {
                     value={props.value}
                 />
             </div>
-            <Button search>
+            <Button search style={{minWidth: props.isMobile ? '50px' : ''}} > 
                 <FontAwesomeIcon icon={faMagnifyingGlass} style={{ marginBottom: '16px', color: 'white' }} />
             </Button>
         </div>

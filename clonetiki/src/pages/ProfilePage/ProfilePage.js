@@ -112,7 +112,7 @@ function ProfilePage() {
             <div className={cx('wrapper')}>
                 <Loading isPending={isPending || isPendingAvatar}>
                     <Row style={{ height: '100%' }}>
-                        <Col span={8}>
+                        <Col xs={24} md={8}>
                             <div className={cx('avatar')}>
                                 <Image width={250} height={250} src={avatar} className={cx('img')} />
                                 <label htmlFor="file-input" className={cx('upload-avatar')}>
@@ -126,7 +126,7 @@ function ProfilePage() {
                                 />
                             </div>
                         </Col>
-                        <Col span={16}>
+                        <Col xs={24} md={16}>
                             <div className={cx('info')}>
                                 <div className={cx('group')}>
                                     <label

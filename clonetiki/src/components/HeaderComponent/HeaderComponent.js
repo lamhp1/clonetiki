@@ -14,6 +14,8 @@ import { useEffect, useState } from 'react';
 import { searchProduct } from '~/redux/slides/productSlice';
 import LamShop from '~/assets/img/LamShop.png';
 import { useMediaQuery } from 'react-responsive';
+import DrawerComponent from '../DrawerComponent/DrawerComponent';
+import { MenuFoldOutlined } from '@ant-design/icons';
 
 const cx = classNames.bind(styles);
 
@@ -25,6 +27,7 @@ function HeaderComponent({ isHiddenSearch = false, isHiddenCart = false }) {
 
     const [loading, setLoading] = useState(false);
     const [isLogIn, setIsLogIn] = useState(false);
+    const [open, setOpen] = useState(false)
     const [name, setName] = useState(user?.name);
     const [search, setSearch] = useState('');
     const navigate = useNavigate();
@@ -60,15 +63,31 @@ function HeaderComponent({ isHiddenSearch = false, isHiddenCart = false }) {
 
     const handleGoToProfilePage = () => {
         navigate('/profile');
+        if(isMobile) {
+            setOpen(false)
+        }
     };
 
     const handleGoToMyOrder = () => {
         navigate('/my-order');
+        if(isMobile) {
+            setOpen(false)
+        }
     };
 
     const handleSystem = () => {
         navigate('/system/admin');
+        if(isMobile) {
+            setOpen(false)
+        }
     };
+
+    const handleGoToOrder = () => {
+        navigate('/order')
+        if(isMobile) {
+            setOpen(false)
+        }
+    }
 
     const items = [
         {
@@ -113,16 +132,79 @@ function HeaderComponent({ isHiddenSearch = false, isHiddenCart = false }) {
     //responsive
     const isMobile = useMediaQuery({ maxWidth: 767 });
 
+    const handleOpenDrawer = () => {
+        setOpen(true)
+    }
+
+    const onClose = () => {
+        setOpen(false)
+    }
+
+    const MobileModal = () => {
+        return (<div>
+            <MenuFoldOutlined className={cx('menu-btn')} onClick={handleOpenDrawer} />
+            <DrawerComponent forceRender title="Menu" onClose={onClose} isOpen={open} width={200}
+                 bodyStyle={{padding: '0', backgroundColor:'rgba(26, 148, 255, 0.5)'}}
+                 headerStyle={{backgroundColor:'rgb(26, 148, 255)' }}>
+                {isLogIn ? (<div className={cx('mobile-user')}>
+                                <Image
+                                            width={40}
+                                            height={40}
+                                            src={user?.avatar}
+                                            className={cx('img')}
+                                            preview={false}
+                                />
+                                <span style={{marginLeft: '10px'}}>{name}</span>                              
+                            </div>) : ''}
+                {!isLogIn ? (<div
+                                    onClick={isLogIn ? null : handleNavigateLogin}
+                                    className={cx('user-group')}
+                                    style={{ cursor: 'pointer', margin: '20px 0' }}
+                                >                                 
+                                        <FontAwesomeIcon icon={faUser} className={cx('user-icon')} />     
+                                    <div className={cx('user')}>
+                                        <span>Đăng nhập/Đăng kí</span>      
+                                    </div>
+                                </div>) : (
+                <ul className={cx('menu-list')}>
+                    <li onClick={handleGoToProfilePage} className={cx('menu-item')}>
+                        Thông tin tài khoản
+                    </li>
+                    {user?.isAdmin ? <li onClick={handleSystem} className={cx('menu-item')}>
+                        Quản lí hệ thống
+                    </li> : ''}
+                    <li onClick={handleGoToMyOrder} className={cx('menu-item')}>
+                        Đơn hàng của tôi
+                    </li>
+                    <li onClick={handleLogout} className={cx('menu-item')}>
+                        Đăng xuất
+                    </li>
+                </ul>)}
+                {!isLogIn ? '' : (<div
+                            className={cx('mobile-cart')}
+                            onClick={handleGoToOrder}
+                            style={{ cursor: 'pointer' }}
+                        >
+                            <FontAwesomeIcon icon={faCartShopping} className={cx('cart-icon')} />
+                            <span className="translate-middle badge rounded-pill bg-danger" style={{position: 'absolute',top: '0'}}>
+                                {isLogIn ? order?.orderItems.length : 0}
+                                <span className="visually-hidden">unread messages</span>
+                            </span>
+                </div>)}
+            </DrawerComponent>
+        </div>)
+    }
+
     return (
         <div className={cx('wrapper')}>
             <div className={cx('row')} style={{display: 'flex', alignItems: 'center'}}>
-                <div className={cx({ 'col-3': !isMobile })} onClick={handleGoToHome} style={{ cursor: 'pointer' }}>
+                <div className={cx({ 'col-3': !isMobile })} onClick={handleGoToHome} style={{ cursor: 'pointer', flex: '1', marginRight: '10px' }}>
                     <Image src={LamShop} alt="logo" width={isMobile ? 100 : 150} preview={false} />
                 </div>
-                <div className={cx({ 'col-6': !isMobile })}>
+                <div className={cx({ 'col-6': !isMobile })} style={{flex: '3'}} >
                     {!isHiddenSearch && <ButtonInputSearch value={search} onChange={onSearch} isMobile={isMobile} />}
                 </div>
-                {isMobile ? '' : (<div
+                {isMobile ? <MobileModal /> : (<div
                     className={cx({ 'col-3': !isMobile })}
                     style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}
                 >
