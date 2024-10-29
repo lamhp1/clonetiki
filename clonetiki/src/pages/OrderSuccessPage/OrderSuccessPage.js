@@ -5,6 +5,7 @@ import { Image } from 'antd';
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { removeOrderSuccess } from '~/redux/slides/orderSlice';
+import { useMediaQuery } from 'react-responsive';
 
 const cx = classNames.bind(styles);
 
@@ -15,7 +16,7 @@ function OrderSuccessPage() {
 
     // console.log('location', location);
 
-    const { deliveryInfo, deliveryMethod, totalPrice, orderItemsSelected } = location?.state;
+    const { deliveryInfo, deliveryMethod, paymentMethod, totalPrice, orderItemsSelected } = location?.state;
 
     useEffect(() => {
         let checkListId = [];
@@ -26,6 +27,46 @@ function OrderSuccessPage() {
         dispatch(removeOrderSuccess({ checkListId }));
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
+
+    const methodPayment = () => {
+        switch (paymentMethod) {
+            case 'cash':
+                return 'Thanh toán sau khi nhận hàng'
+            case 'paypal':
+                return 'Đã thanh toàn bằng PayPal'
+            default:
+                return 'Lỗi không xác định'
+        }
+    }
+
+      //responsive
+      const isMobile = useMediaQuery({ maxWidth: 767 });
+
+      const ResponsiveMobile = ({orderItem}) => {
+        return (<>
+                    <Image
+                        src={orderItem?.image}
+                        alt="anh sp"
+                        width={70}
+                        height={70}
+                        style={{ objectFit: 'cover', flex: 1 }}
+                    />
+                    <div style={{flex: 3, marginLeft: '10px'}}>
+                        <p>
+                            Tên sản phẩm: <strong>{orderItem?.name}</strong>
+                        </p>
+                        <p >
+                            Số lượng: <strong>{orderItem?.amount}</strong>
+                        </p>
+                        <p >
+                            Đơn giá: <strong>{orderItem?.price?.toLocaleString()} đ</strong>
+                        </p>
+                        <p >
+                            Giảm giá: <strong>{orderItem?.disCount} %</strong>
+                        </p>
+                    </div>
+                    </>)
+      }
 
     return (
         <div className={cx('wrapper')}>
@@ -43,7 +84,7 @@ function OrderSuccessPage() {
                     <div className={cx('delivery-item')}>
                         <h4>Phương thức thanh toán</h4>
                         <div className={cx('option')} style={{ fontSize: '1.4rem' }}>
-                            Thanh toán sau khi nhận hàng
+                            {methodPayment()}
                         </div>
                     </div>
                 </div>
@@ -67,14 +108,14 @@ function OrderSuccessPage() {
             </h2>
             {orderItemsSelected?.map((orderItem) => (
                 <div className={cx('wrapper-products')} key={orderItem?.product}>
-                    <Image
+                    {isMobile ? <ResponsiveMobile orderItem={orderItem} /> : (<><Image
                         src={orderItem?.image}
                         alt="anh sp"
                         width={70}
                         height={70}
                         style={{ objectFit: 'cover', flex: 1 }}
                     />
-                    <p style={{ flex: 3, marginLeft: '15px' }}>
+                    <p style={{ flex: 3, margin: '0 10px 0 15px' }}>
                         Tên sản phẩm: <strong>{orderItem?.name}</strong>
                     </p>
                     <p style={{ flex: 1 }}>
@@ -85,7 +126,7 @@ function OrderSuccessPage() {
                     </p>
                     <p style={{ flex: 1 }}>
                         Giảm giá: <strong>{orderItem?.disCount} %</strong>
-                    </p>
+                    </p></>)}
                 </div>
             ))}
         </div>

@@ -144,8 +144,11 @@ function HeaderComponent({ isHiddenSearch = false, isHiddenCart = false }) {
         return (<div>
             <MenuFoldOutlined className={cx('menu-btn')} onClick={handleOpenDrawer} />
             <DrawerComponent forceRender title="Menu" onClose={onClose} isOpen={open} width={200}
-                 bodyStyle={{padding: '0', backgroundColor:'rgba(26, 148, 255, 0.5)'}}
-                 headerStyle={{backgroundColor:'rgb(26, 148, 255)' }}>
+                styles={{
+                    header: { backgroundColor: 'rgb(26, 148, 255)' },
+                    body: { padding: '0', backgroundColor: 'rgba(26, 148, 255, 0.5)' },
+                  }}
+                 >                  
                 {isLogIn ? (<div className={cx('mobile-user')}>
                                 <Image
                                             width={40}

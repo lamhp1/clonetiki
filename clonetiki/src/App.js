@@ -75,9 +75,13 @@ function App() {
                                 <Route
                                     path={isCheckAuth && route.path}
                                     element={
-                                        <Layout isHiddenSearch={route.isHiddenSearch}>
+                                        Layout === Fragment ? (
                                             <Page />
-                                        </Layout>
+                                        ) : (
+                                            <Layout isHiddenSearch={route.isHiddenSearch}>
+                                                <Page />
+                                            </Layout>
+                                        )
                                     }
                                     key={index}
                                 />

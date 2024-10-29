@@ -19,6 +19,7 @@ import ModalComponent from '../ModalComponent/ModalComponent';
 import { useMutationHook } from '~/hooks/useMutationHook';
 import { updateInfoUser } from '~/services/UserService';
 import { updateUser } from '~/redux/slides/userSlice';
+import { useMediaQuery } from 'react-responsive';
 
 const cx = classNames.bind(styles);
 
@@ -173,18 +174,33 @@ function ProductDetailComponent({ idProduct }) {
         setAddressChange({ address: e.target.value });
     };
 
+
+    //responsive
+    const isTablet = useMediaQuery({ minWidth: 768, maxWidth: 1024 });
+    const isMobile = useMediaQuery({ maxWidth: 767 });
+    const [smallImgSize, setSmallImgSize] = useState(80)
+
+    useEffect(()=> {
+        if(isTablet) {
+            setSmallImgSize(60)
+        }
+        if(isMobile) {
+            setSmallImgSize(40)
+        }
+    }, [isMobile, isTablet])
+
     return (
         <Loading isPending={isPending}>
             <Row style={{ padding: '16px', background: '#fff' }}>
-                <Col span={10} style={{ textAlign: 'center' }}>
+                <Col xs={24} md={10} style={{ textAlign: 'center' }}>
                     <Image src={product?.image} alt="anh" className={cx('image-big')} />
                     <Row className={cx('image-small')}>
                         <Col>
                             <Image
                                 src={product?.image}
                                 alt="anh"
-                                width={80}
-                                height={80}
+                                width={smallImgSize}
+                                height={smallImgSize}
                                 preview={false}
                                 style={{ objectFit: 'cover' }}
                             />
@@ -193,8 +209,8 @@ function ProductDetailComponent({ idProduct }) {
                             <Image
                                 src={product?.image}
                                 alt="anh"
-                                width={80}
-                                height={80}
+                                width={smallImgSize}
+                                height={smallImgSize}
                                 preview={false}
                                 style={{ objectFit: 'cover' }}
                             />
@@ -203,8 +219,8 @@ function ProductDetailComponent({ idProduct }) {
                             <Image
                                 src={product?.image}
                                 alt="anh"
-                                width={80}
-                                height={80}
+                                width={smallImgSize}
+                                height={smallImgSize}
                                 preview={false}
                                 style={{ objectFit: 'cover' }}
                             />
@@ -213,8 +229,8 @@ function ProductDetailComponent({ idProduct }) {
                             <Image
                                 src={product?.image}
                                 alt="anh"
-                                width={80}
-                                height={80}
+                                width={smallImgSize}
+                                height={smallImgSize}
                                 preview={false}
                                 style={{ objectFit: 'cover' }}
                             />
@@ -223,8 +239,8 @@ function ProductDetailComponent({ idProduct }) {
                             <Image
                                 src={product?.image}
                                 alt="anh"
-                                width={80}
-                                height={80}
+                                width={smallImgSize}
+                                height={smallImgSize}
                                 preview={false}
                                 style={{ objectFit: 'cover' }}
                             />
@@ -233,15 +249,15 @@ function ProductDetailComponent({ idProduct }) {
                             <Image
                                 src={product?.image}
                                 alt="anh"
-                                width={80}
-                                height={80}
+                                width={smallImgSize}
+                                height={smallImgSize}
                                 preview={false}
                                 style={{ objectFit: 'cover' }}
                             />
                         </Col>
                     </Row>
                 </Col>
-                <Col span={12}>
+                <Col xs={24} md={12}>
                     <h1 className={cx('title')}>{product?.name}</h1>
                     <FbLikeBtn
                         dataHref={

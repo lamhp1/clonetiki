@@ -15,6 +15,12 @@
     margin-bottom: 15px;
 }
 
+.state-order {
+    display: flex;
+    justify-content: space-around;
+    border-bottom: 2px solid #efefef;
+}
+
 .product-order {
     display: flex;
     align-items: center;
@@ -63,3 +69,20 @@
         margin: 0;
     }
 }
+
+
+
+@media (max-width: 1024px) {
+    .wrapper {
+        padding: 10px 20px;
+    }
+    .wrapper-item {
+        margin: 0 0 10px 0;
+    }
+   }
+
+   @media (max-width: 768px) {
+    .state-order {
+        flex-direction: column;
+    }
+   }

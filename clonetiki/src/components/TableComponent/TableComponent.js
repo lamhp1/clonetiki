@@ -37,6 +37,7 @@ const TableComponent = (props) => {
                         type: 'checkbox',
                         ...rowSelection,
                     }}
+                    scroll={{ x: 'max-content' }}
                     columns={columns}
                     dataSource={data}
                     {...props}

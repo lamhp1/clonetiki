@@ -13,6 +13,7 @@ import { updateInfoUser } from '~/services/UserService';
 import * as Message from '~/components/Message/Message';
 import { updateUser } from '~/redux/slides/userSlice';
 import { useNavigate } from 'react-router-dom';
+import { useMediaQuery } from 'react-responsive';
 
 const cx = classNames.bind(styles);
 
@@ -33,7 +34,6 @@ function OrderPage() {
     const navigate = useNavigate();
     const { orderItems, orderItemsSelected } = order;
 
-    console.log('orderItems', orderItems);
     // console.log('orderItemsSelected', orderItemsSelected);
 
     const dispatch = useDispatch();
@@ -217,12 +217,158 @@ function OrderPage() {
         return memoPrice - memoSaleOff + memoShipping;
     }, [memoPrice, memoSaleOff, memoShipping]);
 
+    //responsive
+    const isMiniTablet = useMediaQuery({ minWidth: 768, maxWidth: 820 });
+    const isMobile = useMediaQuery({ maxWidth: 767 });
+
+    const ResponsiveMobileLeft = () => {
+        return <>
+            <Row>
+                    <Row style={{width: '100%'}} className={cx('info-order')}>
+                        <Col span={18} style={{ display: 'flex', alignItems: 'center' }}>
+                            <input
+                                type="checkbox"
+                                id="check"
+                                name="check"
+                                style={{ marginRight: '10px' }}
+                                onChange={(e) => handleCheckAll(e)}
+                                checked={checkListId?.length === orderItems?.length && checkListId?.length > 0}
+                            />
+                            <p style={{ fontWeight: '500' }}>Tất cả ({orderItems?.length} sản phẩm)</p>
+                        </Col>
+                        <Col span={6} style={{display: 'flex'}}>                                    
+                                <p style={{ fontWeight: '500', marginRight: '10px' }}> Xóa tất cả</p>
+                                <DeleteOutlined style={{ cursor: 'pointer' }} onClick={() => handleDelAll()} />                            
+                        </Col>
+                    </Row>
+                    {orderItems &&
+                        orderItems?.map((orderItem) => (
+                            <Row className={cx('info-order')} key={orderItem?.product}>
+                                <Col span={7} style={{ display: 'flex', alignItems: 'center' }}>
+                                    <input
+                                        type="checkbox"
+                                        id="check"
+                                        name="check"
+                                        style={{ marginRight: '10px' }}
+                                        onChange={() => handleCheck(orderItem?.product)}
+                                        checked={checkListId?.includes(orderItem?.product)}
+                                    />
+                                    <Image
+                                        src={orderItem?.image}
+                                        width={65}
+                                        height={65}
+                                        style={{ objectFit: 'cover' }}
+                                    />
+                                    
+                                </Col>
+                                <Col span={16} style={{marginTop: '5px'}}>
+                                    <p className={cx('name-order')}>
+                                        {orderItem?.name}
+                                    </p>
+                                    <p style={{marginTop: '5px'}}> <strong>Đơn giá:</strong> {' '}
+                                        {orderItem?.price.toLocaleString()}
+                                        {' đ  '}
+                                        {orderItem?.disCount === 0 ? (
+                                            ''
+                                        ) : (
+                                            <span className={cx('discount')}>-{orderItem?.disCount}%</span>
+                                        )}
+                                    </p>                               
+                                    <div className={cx('quantity')}>
+                                        <strong>Số lượng: </strong>
+                                        <div className={cx('quantity-block')}>
+                                            <Button
+                                                type="outline"
+                                                className={cx('quantity-btn')}
+                                                onClick={() => handleQuantity('decrease', orderItem?.product)}
+                                                disabled={orderItem?.amount <= 1}
+                                            >
+                                                <FontAwesomeIcon icon={faMinus} />
+                                            </Button>
+                                            <input
+                                                type="text"
+                                                value={orderItem?.amount}
+                                                className={cx('nunmber')}
+                                                readOnly
+                                            />
+                                            <Button
+                                                type="outline"
+                                                className={cx('quantity-btn')}
+                                                onClick={() => handleQuantity('increase', orderItem?.product)}
+                                                disabled={orderItem?.amount >= orderItem?.countInStock}
+                                            >
+                                                <FontAwesomeIcon icon={faPlus} />
+                                            </Button>
+                                        </div>
+                                    </div>                             
+                                    <span className={cx('price')} style={{ fontSize: '1.5rem' }}>
+                                        <strong>Thành tiền: </strong>
+                                        {Number(orderItem?.price * orderItem?.amount).toLocaleString()} {' đ  '}
+                                        {orderItem?.disCount === 0 ? (
+                                            ''
+                                        ) : (
+                                            <span className={cx('discount')}>-{orderItem?.disCount}%</span>
+                                        )}
+                                    </span>                             
+                    
+                                </Col>
+                                <Col span={1}>
+                                    <DeleteOutlined
+                                            style={{ cursor: 'pointer' }}
+                                            onClick={() => handleDelOrder(orderItem?.product)}
+                                    />
+                                </Col>
+                            </Row>
+                        ))}
+            </Row>
+        </>
+    }
+
+    const ResponsiveMobileRight = () => {
+        return <>
+                <div className={cx('mobile-wrapper-right')}>
+                    <div className={cx('delivery-info')}>
+                                <h3>
+                                    Thông tin giao hàng - <span onClick={handleOpenModal}>Thay đổi</span>
+                                </h3>
+                    </div>
+                    <div className={cx('price-info')}>
+                                <div className={cx('item')}>
+                                    <p>Tạm tính</p>
+                                    <strong>{memoPrice.toLocaleString()} đ</strong>
+                                </div>
+                                <div className={cx('item')}>
+                                    <p>Giảm giá</p>
+                                    <strong>-{memoSaleOff.toLocaleString()} đ</strong>
+                                </div>
+                                <div className={cx('item')}>
+                                    <p>Thuế</p>
+                                    <strong>0</strong>
+                                </div>
+                                <div className={cx('item')}>
+                                    <p>Phí giao hàng</p>
+                                    <strong>{memoShipping.toLocaleString()}</strong>
+                                </div>
+                                <div className={cx('item', 'item-price')}>
+                                    <p>Tổng tiền: </p>
+                                    <span className={cx('price')}>{memoTotalPrice.toLocaleString()} đ</span>
+                                </div>
+                                <p style={{ textAlign: 'center', margin: '0' }}>(đã bao gồm VAT nếu có)</p>
+                    </div>
+                    <Button type="primary" style={{ height: isMobile ? '48px' : '40px', flex: isMobile || isMiniTablet ? '1' : '' }} 
+                        onClick={handleAddCart} className={cx('btn-buy')}>
+                                Mua hàng
+                    </Button>
+                </div>
+                </>
+    }
+
     return (
         <div className={cx('wrapper')}>
             <h4>Giỏ hàng</h4>
             <Row style={{ display: 'flex' }}>
-                <Col span={18} className={cx('wrapper-left')}>
-                    <Steps
+                <Col lg={18} xs={24} className={cx('wrapper-left')}>
+                    {isMobile ? <ResponsiveMobileLeft /> : (<><Steps
                         style={{ backgroundColor: 'white', padding: '10px', borderRadius: '10px' }}
                         type="navigation"
                         current={currentStep}
@@ -345,10 +491,10 @@ function OrderPage() {
                                     />
                                 </Col>
                             </Row>
-                        ))}
+                        ))}</>)}
                 </Col>
-                <Col span={6} className={cx('wrapper-right')}>
-                    <div className={cx('delivery-info')}>
+                <Col lg={6} xs={24} className={cx('wrapper-right')}>
+                   {isMobile ? <ResponsiveMobileRight/> : (<> <div className={cx('delivery-info')}>
                         <h3>
                             Thông tin giao hàng - <span onClick={handleOpenModal}>Thay đổi</span>
                         </h3>
@@ -380,14 +526,14 @@ function OrderPage() {
                             <strong>{memoShipping.toLocaleString()}</strong>
                         </div>
                         <div className={cx('item', 'item-price')}>
-                            <p>Tổng tiền</p>
+                            <p>Tổng tiền: </p>
                             <span className={cx('price')}>{memoTotalPrice.toLocaleString()} đ</span>
                         </div>
                         <p style={{ textAlign: 'center', margin: '0' }}>(đã bao gồm VAT nếu có)</p>
                     </div>
-                    <Button type="primary" style={{ height: '40px' }} onClick={handleAddCart}>
+                    <Button type="primary" style={{ height: '40px', flex: isMobile || isMiniTablet ? '1' : '' }} onClick={handleAddCart}>
                         Mua hàng
-                    </Button>
+                    </Button></>)}
                 </Col>
             </Row>
             <ModalComponent

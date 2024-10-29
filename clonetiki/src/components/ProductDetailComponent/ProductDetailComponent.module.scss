@@ -8,6 +8,8 @@
     display: flex;
     justify-content: space-between;
     margin-top: 5px;
+    flex-wrap: nowrap;
+    overflow: scroll;
 }
 
 .title {
@@ -129,3 +131,25 @@
         }
     }
 }
+
+
+@media (max-width: 1024px) {
+    .buy {
+        flex-direction: column;
+        .buy-btn {
+            margin-bottom: 10px;
+        }
+    }
+  }
+
+@media (max-width: 768px) {
+    .title {
+        margin-top: 15px;
+    }
+    .buy {
+        flex-direction: column;
+        .buy-btn {
+            margin-bottom: 10px;
+        }
+    }
+  }

@@ -12,6 +12,7 @@ import { createOrder } from '~/services/OrderService';
 import Loading from '~/components/loadingComponent/Loading';
 import { useNavigate } from 'react-router-dom';
 import PayPalComponent from '~/components/PaypalComponent/PaypalComponent';
+import { useMediaQuery } from 'react-responsive';
 
 const cx = classNames.bind(styles);
 
@@ -235,11 +236,11 @@ function PaymentPage() {
         setPaidTime(update_time);
     };
 
-    const renderPaymentBtn = () => {
+    const RenderPaymentBtn = ({isMobile}) => {
         switch (choseMethodPayment) {
             case 'cash':
                 return (
-                    <Button type="primary" style={{ height: '40px' }} onClick={handlePurchase} block={true}>
+                    <Button type="primary" onClick={handlePurchase} block={true} style={{height: isMobile ? '48px' : ''}}>
                         Đặt hàng
                     </Button>
                 );
@@ -250,19 +251,61 @@ function PaymentPage() {
         }
     };
 
+    //responsive
+    const isMiniTablet = useMediaQuery({ minWidth: 768, maxWidth: 820 });
+    const isMobile = useMediaQuery({ maxWidth: 767 });
+
+    const ResponsiveMobileRight = () => {
+        return <>
+                <div className={cx('mobile-wrapper-right')}>
+                    <div className={cx('delivery-info')}>
+                                <h3>
+                                    Thông tin giao hàng - <span onClick={handleOpenModal}>Thay đổi</span>
+                                </h3>
+                    </div>
+                    <div className={cx('price-info')}>
+                                <div className={cx('item')}>
+                                    <p>Tạm tính</p>
+                                    <strong>{memoPrice.toLocaleString()} đ</strong>
+                                </div>
+                                <div className={cx('item')}>
+                                    <p>Giảm giá</p>
+                                    <strong>-{memoSaleOff.toLocaleString()} đ</strong>
+                                </div>
+                                <div className={cx('item')}>
+                                    <p>Thuế</p>
+                                    <strong>0</strong>
+                                </div>
+                                <div className={cx('item')}>
+                                    <p>Phí giao hàng</p>
+                                    <strong>{memoShipping.toLocaleString()}</strong>
+                                </div>
+                                <div className={cx('item', 'item-price')}>
+                                    <p>Tổng tiền: </p>
+                                    <span className={cx('price')}>{memoTotalPrice.toLocaleString()} đ</span>
+                                </div>
+                                <p style={{ textAlign: 'center', margin: '0' }}>(đã bao gồm VAT nếu có)</p>
+                    </div>
+                    <div>
+                        <Loading isPending={isPendingCreate}><RenderPaymentBtn isMobile/></Loading>
+                    </div>
+                </div>
+                </>
+    }
+
     return (
         <div className={cx('wrapper')}>
             <h4>Thanh toán</h4>
             <Row style={{ display: 'flex' }}>
-                <Col span={18} className={cx('wrapper-left')}>
+                <Col lg={18} xs={24} className={cx('wrapper-left')}>
                     <div className={cx('wrapper-info')}>
                         <p>Chọn phương thức giao hàng</p>
                         <div>
                             <Radio.Group onChange={onChangeDelivery} value={choseDelivery} className={cx('option')}>
-                                <Radio value="FAST">
+                                <Radio value="FAST" className={cx('ship-item')}>
                                     <span className={cx('ship-info')}>FAST</span> giao hàng tiết kiệm
                                 </Radio>
-                                <Radio value="GO_JEK">
+                                <Radio value="GO_JEK" className={cx('ship-item')}>
                                     <span className={cx('ship-info')}>GO_JEK</span> giao hàng tiết kiệm
                                 </Radio>
                             </Radio.Group>
@@ -274,14 +317,15 @@ function PaymentPage() {
                                 value={choseMethodPayment}
                                 className={cx('option')}
                             >
-                                <Radio value={'cash'}>Thanh toán tiền mặt khi nhận hàng</Radio>
-                                <Radio value={'paypal'}>Thanh toán bằng PayPal</Radio>
+                                <Radio value={'cash'} className={cx('ship-item')}>Thanh toán tiền mặt khi nhận hàng</Radio>
+                                <Radio value={'paypal'} className={cx('ship-item')}>Thanh toán bằng PayPal</Radio>
                             </Radio.Group>
                         </div>
                     </div>
                 </Col>
-                <Col span={6} className={cx('wrapper-right')}>
-                    <div className={cx('delivery-info')}>
+                <Col lg={6} xs={24} className={cx('wrapper-right')}>
+                    {isMobile ? <ResponsiveMobileRight/> : (<>
+                        <div className={cx('delivery-info')}>
                         <h3>
                             Thông tin giao hàng - <span onClick={handleOpenModal}>Thay đổi</span>
                         </h3>
@@ -318,7 +362,10 @@ function PaymentPage() {
                         </div>
                         <p style={{ textAlign: 'center', margin: '0' }}>(đã bao gồm VAT nếu có)</p>
                     </div>
-                    <Loading isPending={isPendingCreate}>{renderPaymentBtn()}</Loading>
+                    <div style={{ height: '40px', flex: isMobile || isMiniTablet ? '1' : '' }}>
+                        <Loading isPending={isPendingCreate}><RenderPaymentBtn/></Loading>
+                    </div>
+                    </>)}
                 </Col>
             </Row>
             <ModalComponent
@@ -348,7 +395,7 @@ function PaymentPage() {
                         labelAlign="left"
                         labelCol={{ span: 6 }}
                         label="Name"
-                        name="name"
+                        name="fullName"
                         rules={[
                             {
                                 required: true,
@@ -356,7 +403,7 @@ function PaymentPage() {
                             },
                         ]}
                     >
-                        <Input value={stateDetailUser.name} onChange={handleChangeInputDetail} id="name" />
+                        <Input value={stateDetailUser.fullName} onChange={handleChangeInputDetail} id="fullName" />
                     </Form.Item>
 
                     <Form.Item

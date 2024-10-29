@@ -11,6 +11,7 @@ import { useMutationHook } from '~/hooks/useMutationHook';
 import * as Message from '~/components/Message/Message';
 import ModalComponent from '~/components/ModalComponent/ModalComponent';
 import cartImg from '~/assets/img/carttachnen.png';
+import { useMediaQuery } from 'react-responsive';
 
 const cx = classNames.bind(styles);
 
@@ -73,6 +74,24 @@ function MyOrderPage() {
         handleDeleteOrder(orderDelete);
     };
 
+      //responsive
+    const isMobile = useMediaQuery({ maxWidth: 767 });
+
+    const ResponsiveMobile = ({orderItem}) => {
+        return <div style={{ flex: '3', marginLeft: '5px' }}>
+            <p>
+                {orderItem?.name}
+            </p>
+            <p>
+                Số lượng: <strong>{orderItem?.amount}</strong>
+            </p>
+            <p>
+                Đơn giá:{' '}
+                <strong>{orderItem?.price.toLocaleString()} đ</strong>
+            </p>
+        </div>
+    }
+
     return (
         <>
             <Loading isPending={isPending}>
@@ -86,20 +105,14 @@ function MyOrderPage() {
                                 return (
                                     <Row className={cx('wrapper-item')} key={order?._id}>
                                         <div>
-                                            <div className={cx('state-order')}>
+                                            <div >
                                                 <p style={{ fontWeight: '500', fontSize: '1.5rem' }}>
                                                     Trạng thái:{' '}
                                                     <span style={{ float: 'right' }}>
                                                         Đặt hàng lúc: {convertDate(order?.createdAt)}
                                                     </span>
                                                 </p>
-                                                <div
-                                                    style={{
-                                                        display: 'flex',
-                                                        justifyContent: 'space-around',
-                                                        borderBottom: '2px solid #efefef',
-                                                    }}
-                                                >
+                                                <div className={cx('state-order')}>
                                                     <p>
                                                         Giao hàng: <strong>Chưa giao hàng</strong> (đơn vị giao hàng:{' '}
                                                         <span className={cx('ship-info')}>{order?.deliveryMethod}</span>
@@ -123,7 +136,7 @@ function MyOrderPage() {
                                                             height={75}
                                                             style={{ objectFit: 'cover', flex: '1' }}
                                                         ></Image>
-                                                        <p style={{ paddingLeft: '10px', flex: '7' }}>
+                                                        {isMobile ? <ResponsiveMobile orderItem={orderItem} /> : (<><p style={{ padding: '0 10px', flex: '7' }}>
                                                             {orderItem?.name}
                                                         </p>
                                                         <p style={{ flex: '2' }}>
@@ -132,7 +145,7 @@ function MyOrderPage() {
                                                         <p style={{ flex: '2' }}>
                                                             Đơn giá:{' '}
                                                             <strong>{orderItem?.price.toLocaleString()} đ</strong>
-                                                        </p>
+                                                        </p></>)}
                                                     </div>
                                                 );
                                             })}
